@@ -92,3 +92,8 @@ class ResetForgetPasswordView(generics.GenericAPIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class logout(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def get(self, request, *args, **kwargs):
+        return Response({"message": "successful logout"}, status=status.HTTP_200_OK)
