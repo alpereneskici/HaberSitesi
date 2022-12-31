@@ -22,3 +22,15 @@ class PaperListView(generics.ListAPIView):
     queryset = paper.objects.all()
     serializer_class = PaperSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class PaperDeleteView(generics.DestroyAPIView):
+    serializer_class = PaperSerializer
+    permission_classes = [permissions.IsAdminUser]
+    
+    def delete(self, request, *args, **kwargs):
+        paper_obj = paper.objects.filter(paper_id=request.data.get('paper_id')).first()
+        if paper_obj:
+            paper_obj.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_404_NOT_FOUND)
