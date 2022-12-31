@@ -30,3 +30,4 @@ urllib3
 validators
 win32-setctime
 django-environ
+psycopg2
