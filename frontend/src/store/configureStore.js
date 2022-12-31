@@ -18,7 +18,7 @@ import {
 } from 'redux-persist'
 
 import {
-
+    auth,
 } from '../services/reducers'
 
 const persistConfig = {
@@ -28,7 +28,7 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-
+    auth: auth,
 })
 
 

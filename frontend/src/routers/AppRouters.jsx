@@ -1,8 +1,13 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { unstable_HistoryRouter as HistoryRouter, Outlet } from "react-router-dom";
 
-import App from "../pages/App";
+import PrivateRoute from "./PrivateRouter";
+import PublicRoute from "./PublicRouter";
+
+import Login from "../pages/auth/login/Login";
+import Register from "../pages/auth/register/Register"
+import Haberler from "../pages/main/Haberler"
 
 import history from "./history";
 
@@ -11,12 +16,19 @@ import history from "./history";
 const MyRouters = () => {
 
   return (
-
     <React.Fragment>
-        <Routes>
-        <Route exact path="/" element={<App />} />
-        </Routes>
-    </React.Fragment>
+    <Suspense fallback={<Outlet />}>
+      <Routes>
+        <Route exact path="/" element={<PrivateRoute />}>
+        <Route exact path="/" element={<Haberler />} />
+        </Route>
+        <Route exact path="/" element={<PublicRoute />}>
+          <Route exact path="/home" element={<Login />} />
+          <Route exact path="/register" element={<Register />} />
+        </Route>
+      </Routes>
+    </Suspense>
+  </React.Fragment>
   );
 };
 
