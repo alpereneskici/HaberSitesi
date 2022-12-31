@@ -11,9 +11,7 @@ export const instance = axios.create({
 export const config = () => {
     return {
         headers: {
-            'Content-Type': 'application/json',
             'Authorization': `Token ${localStorage.getItem('token')}`,
-            'Accept': 'application/json'
         }
     }
 };

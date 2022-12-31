@@ -1,4 +1,4 @@
-import {AuthBox} from "./boxs/box"
+import {AuthBox,NewsBox} from "./boxs/box"
 import Loadable from "./loading/loadable";
 
-export {AuthBox,Loadable}
+export {AuthBox,NewsBox,Loadable}

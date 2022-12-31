@@ -5,10 +5,7 @@ import {
     LOGIN_FAIL,
     USER_LOADED_SUCCESS,
     USER_LOADED_FAIL,
-
-    SIGNUP_SUCCESS,
     SIGNUP_FAIL,
-
     LOGOUT,
 } from './types';
 
@@ -60,7 +57,6 @@ export const signup = (props) => async dispatch => {
 
     try {
         const res = await AuthService.signUp(body);
-        console.log(res);
         return res.status === 200
     } catch (err) {
         dispatch({
@@ -87,28 +83,20 @@ export const forgot_password_confirm = (token, password) => async dispatch => {
     const body = JSON.stringify({token, password });
     try {
         await AuthService.confirmPass(token, body);
-
-
     } catch (err) {
-
+        return Promise.reject(err)
     }
 };
 
-// export const logout = () => async dispatch => {
-//     let token = localStorage.getItem('token');
-//     const config = {
-//         headers: {
-//             'Content-Type': 'application/json',
-//             "Authorization": `token ${token}`,
-//         }
-//     };
-//     try {
-//         await instance.get(`/auth/logout/`, config);
-//         dispatch({
-//             type: LOGOUT
-//         });
-//     } catch (err) {
+export const logOut = () => async dispatch => {
 
-//     }
-// };
+    try {
+        await AuthService.logOut();
+        dispatch({
+            type:LOGOUT,
+        })
+    } catch (err) {
+        return Promise.reject(err)
+    }
+};
 

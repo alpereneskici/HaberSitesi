@@ -19,16 +19,18 @@ import {
 
 import {
     auth,
+    news
 } from '../services/reducers'
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: []
+    whitelist: ["auth"]
 }
 
 const rootReducer = combineReducers({
     auth: auth,
+    news: news
 })
 
 

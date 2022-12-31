@@ -41,7 +41,11 @@ const confirmPass = (token,body) => {
     )
 }
 
-
+const logOut = () => {
+    return instance.get(
+        `/user/logout/`, config() 
+    )
+}
 
 
 
@@ -50,7 +54,8 @@ const AuthService = {
     login,
     signUp,
     forgetPass,
-    confirmPass
+    confirmPass,
+    logOut
 };
 
 export default AuthService;

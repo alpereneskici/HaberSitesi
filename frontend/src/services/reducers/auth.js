@@ -7,27 +7,19 @@ import {
     USER_LOADED_FAIL,
     AUTHENTICATED_SUCCESS,
     AUTHENTICATED_FAIL,
-    GITHUB_AUTH_SUCCESS,
-    GITHUB_AUTH_FAIL,
     PASSWORD_RESET_SUCCESS,
     PASSWORD_RESET_FAIL,
     PASSWORD_RESET_CONFIRM_SUCCESS,
     PASSWORD_RESET_CONFIRM_FAIL,
     SIGNUP_SUCCESS,
     SIGNUP_FAIL,
-    ACTIVATION_SUCCESS,
-    ACTIVATION_FAIL,
-    GOOGLE_AUTH_SUCCESS,
-    GOOGLE_AUTH_FAIL,
-    FACEBOOK_AUTH_SUCCESS,
-    FACEBOOK_AUTH_FAIL,
     LOGOUT
 } from '../actions/types';
 
 const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: false,
-    user: null
+    user: {Message: [{is_admin:false}]}
 };
 
 export default function (state = initialState, action) {
@@ -35,6 +27,22 @@ export default function (state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
+        case "persist/REHYDRATE":
+            try {
+                return {
+                    ...state,
+                    user: payload.auth.user,
+
+                }
+            } catch {
+                return {
+                    ...state,
+                    token:false,
+                    isAuthenticated: false,
+                    user: {Message: [{is_admin:false}]}
+                }
+            }
+
         case AUTHENTICATED_SUCCESS:
             return {
                 ...state,
@@ -42,9 +50,6 @@ export default function (state = initialState, action) {
             }
         case LOGIN_SUCCESS:
         case SIGNUP_SUCCESS:
-        case GOOGLE_AUTH_SUCCESS:
-        case FACEBOOK_AUTH_SUCCESS:
-        case GITHUB_AUTH_SUCCESS:
             localStorage.setItem('token', payload);
             return {
                 ...state,
@@ -64,12 +69,9 @@ export default function (state = initialState, action) {
         case USER_LOADED_FAIL:
             return {
                 ...state,
-                user: null
+                user:  {Message: [{is_admin:false}]}
             }
         case CHANGE_PASSWORD_SUCCESS:
-        case GITHUB_AUTH_FAIL:
-        case GOOGLE_AUTH_FAIL:
-        case FACEBOOK_AUTH_FAIL:
         case LOGIN_FAIL:
         case SIGNUP_FAIL:
         case LOGOUT:
@@ -78,15 +80,13 @@ export default function (state = initialState, action) {
                 ...state,
                 token: null,
                 isAuthenticated: false,
-                user: null
+                user:  {Message: [{isAdmin:false}]}
             }
         case CHANGE_PASSWORD_FAIL:
         case PASSWORD_RESET_SUCCESS:
         case PASSWORD_RESET_FAIL:
         case PASSWORD_RESET_CONFIRM_SUCCESS:
         case PASSWORD_RESET_CONFIRM_FAIL:
-        case ACTIVATION_SUCCESS:
-        case ACTIVATION_FAIL:
             return {
                 ...state
             }
