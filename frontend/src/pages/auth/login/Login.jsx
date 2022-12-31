@@ -4,11 +4,16 @@ import ReactDOM from 'react-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
-import {Box,Button,TextField,Grid} from "@mui/material"
+import {Button,TextField,Grid,Typography} from "@mui/material"
 
 import { useDispatch } from 'react-redux';
 
+import { AuthBox } from '../../../components';
+
 import { login } from '../../../services/actions/auth';
+import history from '../../../routers/history';
+
+
 const validationSchema = yup.object({
   email: yup
     .string('Enter your email')
@@ -37,7 +42,8 @@ const LoginMain = () => {
   });
 
   return (
-    <Box sx={{p:3}}>
+    <AuthBox sx={{p:3}}>
+      <Typography variant='h4' sx={{textAlign:"center",mb:2}}>Giriş yap </Typography>
       <form onSubmit={formik.handleSubmit} >
         <Grid container rowGap={2}>
           <TextField
@@ -64,9 +70,19 @@ const LoginMain = () => {
           <Button color="primary" variant="contained" fullWidth type="submit">
             Giriş Yap
           </Button>
+          <Button color="secondary" variant="contained" fullWidth type="submit" onClick={()=>{
+            history.push("/register")
+          }}>
+            Hesap Oluştur
+          </Button>
+          <Button color="info" variant="contained" fullWidth type="submit" onClick={()=>{
+            history.push("/forgetpassword")
+          }}>
+            Şifremi Unuttum
+          </Button>
         </Grid>
       </form>
-    </Box>
+    </AuthBox>
   );
 };
 

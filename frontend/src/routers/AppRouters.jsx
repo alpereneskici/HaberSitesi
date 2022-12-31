@@ -5,13 +5,15 @@ import { unstable_HistoryRouter as HistoryRouter, Outlet } from "react-router-do
 import PrivateRoute from "./PrivateRouter";
 import PublicRoute from "./PublicRouter";
 
-import Login from "../pages/auth/login/Login";
-import Register from "../pages/auth/register/Register"
-import Haberler from "../pages/main/Haberler"
+import {  Loadable } from "../components";
 
 import history from "./history";
 
-
+const Login = Loadable(React.lazy(() => import("../pages/auth/login/Login")));
+const Register = Loadable(React.lazy(() => import("../pages/auth/register/Register")));
+const ForgetPassword = Loadable(React.lazy(() => import("../pages/auth/forgatpass/ForgetPassword")));
+const ForgotPasswordConfirm = Loadable(React.lazy(() => import("../pages/auth/forgatpass/ForgotPasswordConfirm")));
+const Haberler = Loadable(React.lazy(() => import("../pages/main/Haberler")));
 
 const MyRouters = () => {
 
@@ -25,6 +27,8 @@ const MyRouters = () => {
         <Route exact path="/" element={<PublicRoute />}>
           <Route exact path="/home" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
+          <Route exact path="/forgetpassword" element={<ForgetPassword />} />
+          <Route path="/login/securecode/:token" element={<ForgotPasswordConfirm />} />
         </Route>
       </Routes>
     </Suspense>

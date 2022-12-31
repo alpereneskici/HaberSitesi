@@ -69,41 +69,30 @@ export const signup = (props) => async dispatch => {
     }
 };
 
-// export const forget_password = (email) => async dispatch => {
-//     const config = {
-//         headers: {
-//             'Content-Type': 'application/json',
-//         }
-//     };
-//     const body = JSON.stringify({
-//         email,
-//     });
-//     try {
-//         await instance.post(`/auth/Forget-password/`, body, config);
-//         dispatch({
-//             type: CHANGE_PASSWORD_SUCCESS
-//         });
-//     } catch (err) {
-//     }
-// };
+export const forget_password = (email) => async dispatch => {
+    const body = JSON.stringify({
+        email,
+    });
+    try {
+        await AuthService.forgetPass( body);
+        dispatch({
+            type: CHANGE_PASSWORD_SUCCESS
+        });
+    } catch (err) {
+    }
+};
 
 
-// export const forgot_password_confirm = (token, password) => async dispatch => {
-//     const config = {
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     };
-
-//     const body = JSON.stringify({ password });
-//     try {
-//         await instance.post(`/auth/reset-new-password/${token}/`, body, config);
+export const forgot_password_confirm = (token, password) => async dispatch => {
+    const body = JSON.stringify({token, password });
+    try {
+        await AuthService.confirmPass(token, body);
 
 
-//     } catch (err) {
+    } catch (err) {
 
-//     }
-// };
+    }
+};
 
 // export const logout = () => async dispatch => {
 //     let token = localStorage.getItem('token');

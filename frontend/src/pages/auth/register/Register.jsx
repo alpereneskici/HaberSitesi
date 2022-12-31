@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux"
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
-import {Box,Button,TextField,Grid} from "@mui/material"
+import {Button,TextField,Grid,Typography} from "@mui/material"
+import { AuthBox } from '../../../components';
 
 import { signup } from '../../../services/actions/auth';
 import history from '../../../routers/history';
@@ -50,7 +51,8 @@ const Register = () => {
   });
 
   return (
-    <Box sx={{p:3}}>
+    <AuthBox>
+      <Typography variant='h4' sx={{textAlign:"center",mb:2}}>Kaydol </Typography>
       <form onSubmit={formik.handleSubmit} >
         <Grid container rowGap={2}>
             <TextField
@@ -97,9 +99,14 @@ const Register = () => {
           <Button color="primary" variant="contained" fullWidth type="submit">
             Kaydol
           </Button>
+          <Button color="secondary" variant="contained" fullWidth type="submit" onClick={()=>{
+            history.push("/")
+          }}>
+            Zaten bir hesabın var mı ?
+          </Button>
         </Grid>
       </form>
-    </Box>
+    </AuthBox>
   );
 };
 

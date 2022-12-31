@@ -14,6 +14,7 @@ const login = (body) => {
     )
 }
 
+
 const signUp = (body) => {
     console.log(body);
     return instance.post(
@@ -22,6 +23,25 @@ const signUp = (body) => {
         } }
     )
 }
+const forgetPass = (body) => {
+    console.log(body);
+    return instance.post(
+        "/user/forget-password/", body, {  headers: {
+            'Content-Type': 'application/json'
+        } }
+    )
+}
+
+const confirmPass = (token,body) => {
+    console.log(token,body);
+    return instance.post(
+        `/user/reset/`, body, {  headers: {
+            'Content-Type': 'application/json'
+        } }
+    )
+}
+
+
 
 
 
@@ -29,6 +49,8 @@ const AuthService = {
     getUserDetail,
     login,
     signUp,
+    forgetPass,
+    confirmPass
 };
 
 export default AuthService;

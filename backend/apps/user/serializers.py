@@ -119,6 +119,7 @@ class ResetNewPasswordSerializer(serializers.Serializer):
     def save(self, instance):
         try:
             # The request sent with the default value has been checked as it may create vulnerability.
+            print(instance)
             if instance["token"] == "False":
                 raise serializers.ValidationError(
                     {"error": "this link has expired please send new request"}
